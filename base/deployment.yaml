@@ -30,7 +30,7 @@ spec:
       containers:
         - name: pacman-nodejs-app
           image: >-
-            quay.io/rh_pnguyen/pacman:0.0.1
+            quay.io/rh_pnguyen/pacman:0.0.2
           ports:
             - containerPort: 8080
               protocol: TCP
