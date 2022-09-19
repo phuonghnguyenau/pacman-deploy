@@ -22,6 +22,11 @@ spec:
         app: pacman-nodejs-app
         deploymentconfig: pacman-nodejs-app
     spec:
+      volumes:
+        - name: mongo-config
+          emptyDir: {}
+        - name: mongo-data
+          emptyDir: {}
       containers:
         - name: pacman-nodejs-app
           image: >-
@@ -34,6 +39,24 @@ spec:
               memory: "800Mi"
               cpu: "800m"
           imagePullPolicy: IfNotPresent
+        - name: mongo
+          image: >-
+            mongo:6.0.1
+          ports:
+            - containerPort: 27017
+              protocol: TCP
+          resources:
+            limits:
+              memory: "800Mi"
+              cpu: "800m"
+          volumeMounts:
+            - name: mongo-config
+              mountPath: /data/configdb
+            - name: mongo-data
+              mountPath: /data/db
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
   strategy:
