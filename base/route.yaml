@@ -1,0 +1,23 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: pacman-nodejs-app
+  namespace: pacman
+  labels:
+    app: pacman-nodejs-app
+    app.kubernetes.io/component: pacman-nodejs-app
+    app.kubernetes.io/instance: pacman-nodejs-app
+    app.kubernetes.io/name: pacman-nodejs-app
+    app.kubernetes.io/part-of: pacman
+    app.openshift.io/runtime-version: 0.0.1
+spec:
+  to:
+    kind: Service
+    name: pacman-nodejs-app
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

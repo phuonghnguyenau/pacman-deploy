@@ -1,0 +1,26 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: pacman-nodejs-app
+  namespace: pacman
+  labels:
+    app: pacman-nodejs-app
+    app.kubernetes.io/component: pacman-nodejs-app
+    app.kubernetes.io/instance: pacman-nodejs-app
+    app.kubernetes.io/name: pacman-nodejs-app
+    app.kubernetes.io/part-of: pacman
+    app.openshift.io/runtime-version: 0.0.1
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: pacman-nodejs-app
+    deploymentconfig: pacman-nodejs-app
